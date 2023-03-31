@@ -6,28 +6,21 @@
 
     <link rel="stylesheet" href="./sass/index.scss" />
 
-    <script type="module" src="./index.js"></script>
-
     <title>News</title>
   </head>
-
   <body>
     <div class="wrapper">
       <div class="content">
-        <include src="./partials/index/header.html"></include>
-
-        <div class="filters-date">
-          <div class="container">
-            <include src="./partials/index/filters.html"></include>
-            <include src="./partials/index/date.html"></include>
-          </div>
-        </div>
-
-        <include src="./partials/index/main.html"></include>
+        <include src="./partials/favorite/header.html"></include>
+        <include src="./partials/favorite/main.html"></include>
       </div>
       <include src="./partials/footer.html"></include>
     </div>
 
     <include src="./partials/modal.html"></include>
+    <script type="module" src="./JS/news/favorite.js"></script>
+    <script type="module" src="./JS/form.js"></script>
+    <script src="./JS/header.js"></script>
+    <script src="./JS/theme.js"></script>
   </body>
 </html>

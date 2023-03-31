@@ -1,0 +1,48 @@
+<div class="container index-main-container">
+  <div class="loader hidden"></div>
+  <div class="weather_container"></div>
+  <div class="undefined">
+    <h1 class="undefined-title">We haven't found news from this category</h1>
+    <picture class="undefined-picture">
+      <source
+        media="(min-width: 1280px)"
+        srcset="/src/images/desk-standard-picture.png"
+      />
+
+      <source
+        media="(min-width: 768px)"
+        srcset="/src/images/tablet-standard-picture.png"
+      />
+
+      <img src="/src/images/mobile-standard-picture.png" alt="foto" />
+    </picture>
+  </div>
+  <ul class="card-news"></ul>
+</div>
+<div class="pagination hidden">
+  <nav class="pag">
+    <button class="prew">
+      <svg width="8" height="12" class="svg-prew">
+        <use href="./images/sprite.svg#left-arrow"></use>
+      </svg>
+      Prew
+    </button>
+    <div class="numbers" data-bg="none">
+      <button class="num hidden">1</button>
+      <span class="dots hidden">...</span>
+      <button class="num">1</button>
+      <button class="num">2</button>
+      <button class="num">3</button>
+      <button class="mobile-num hidden">1</button>
+      <span class="dots">...</span>
+      <button class="num">20</button>
+    </div>
+    <button class="next">
+      Next
+      <svg width="8" height="12" class="svg-next">
+        <use href="./images/sprite.svg#right-arrow"></use>
+      </svg>
+    </button>
+  </nav>
+</div>
+<div class="box"></div>

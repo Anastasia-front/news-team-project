@@ -1,0 +1,146 @@
+<header class="header">
+  <div class="container header__container">
+    <nav class="header__navigation">
+      <a class="header-logo" id="logo" href="/src/index.html">News </a>
+
+      <ul class="header-list">
+        <li class="header-list__item">
+          <a class="header-list__link link" href="/src/index.html">Home</a>
+        </li>
+
+        <li class="header-list__item">
+          <a class="header-list__link link" href="/src/favorite.html"
+            >Favorite</a
+          >
+        </li>
+
+        <li class="header-list__item current">
+          <a class="header-list__link link" href="/src/read.html">Read</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="form-theme">
+      <form class="search-form">
+        <input class="search-input" type="text" placeholder="Search" />
+        <div search-icon>
+          <button type="submit" class="open-input"></button>
+          <svg class="search-icon__svg" width="20" height="20">
+            <use href="/src/images/sprite.svg#search"></use>
+          </svg>
+        </div>
+      </form>
+
+      <div class="theme">
+        <svg class="theme-icon__sun" width="20" height="20">
+          <use href="./images/sprite.svg#sun"></use>
+        </svg>
+        <p class="theme-icon-light">Light</p>
+
+        <div class="switch">
+          <span class="checkbox"></span>
+
+          <span class="slider"></span>
+        </div>
+        <svg class="theme-icon__moon" width="20" height="20">
+          <use href="./images/sprite.svg#moon"></use>
+        </svg>
+        <p class="theme-icon-dark">Dark</p>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button type="button" class="open-mob-menu" data-menu-open>
+        <svg class="icon-open-mob-menu" width="20" height="20">
+          <use href="/src/images/sprite.svg#burger"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mob-menu visually-hidden" data-menu>
+  <div class="container">
+    <div class="mob-menu-top">
+      <a
+        class="header-logo link header-logo-mob"
+        id="logo"
+        href="/src/index.html"
+        >News
+      </a>
+
+      <button type="button" class="close-mob-menu" data-menu-close>
+        <svg class="icon-close-mob-menu" width="20" height="20">
+          <use href="/src/images/sprite.svg#close"></use>
+        </svg>
+      </button>
+
+      <ul class="mob-menu-list">
+        <li class="mob-menu__item">
+          <div class="icon-home">
+            <svg class="icon-home-svg" width="15" height="15">
+              <use href="/src/images/sprite.svg#home"></use>
+            </svg>
+          </div>
+
+          <a class="mob-menu__link" href="/src/index.html"
+            >Home
+            <svg class="icon-right-arrow" width="12" height="12">
+              <use href="/src/images/sprite.svg#right-arrow"></use>
+            </svg>
+          </a>
+        </li>
+
+        <li class="mob-menu__item">
+          <div class="icon-home">
+            <svg class="icon-home-svg" width="15" height="15">
+              <use href="/src/images/sprite.svg#favorite-heart"></use>
+            </svg>
+          </div>
+
+          <a
+            class="mob-menu__link link mob-menu-favorite-link"
+            href="/src/favorite.html"
+            >Favorite
+            <svg class="icon-right-arrow" width="12" height="12">
+              <use href="/src/images/sprite.svg#right-arrow"></use>
+            </svg>
+          </a>
+        </li>
+
+        <li class="mob-menu__item active-item">
+          <div class="icon-home">
+            <svg class="icon-home-svg" width="15" height="15">
+              <use href="/src/images/sprite.svg#book"></use>
+            </svg>
+          </div>
+
+          <a
+            class="mob-menu__link link mob-menu-favorite-link"
+            href="/src/read.html"
+            >Read
+            <svg class="icon-right-arrow" width="12" height="12">
+              <use href="/src/images/sprite.svg#right-arrow"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <div class="mob-theme">
+        <svg class="theme-icon__sun" width="20" height="20">
+          <use href="./images/sprite.svg#sun"></use>
+        </svg>
+
+        <div class="mob-switch">
+          <span class="mob-checkbox"></span>
+
+          <span class="mob-slider"></span>
+        </div>
+        <svg class="theme-icon__moon" width="20" height="20">
+          <use href="./images/sprite.svg#moon"></use>
+        </svg>
+      </div>
+    </div>
+
+    <div class="switcher"></div>
+  </div>
+</div>

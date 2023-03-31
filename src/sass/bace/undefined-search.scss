@@ -1,0 +1,66 @@
+.undefined {
+  display: none;
+  text-align: center;
+  flex-direction: column;
+  align-content: center;
+  margin-top: 40px;
+  margin-bottom: 59px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 48px;
+    margin-bottom: 101px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-top: 60px;
+    margin-bottom: 226px;
+  }
+}
+
+.undefined-title {
+  font-weight: 700;
+  color: var(--dark-text-color);
+  font-size: 20px;
+  line-height: 27px;
+  @media screen and (min-width: 768px) {
+    font-size: 40px;
+    line-height: 55px;
+  }
+  @media screen and (min-width: 1280px) {
+    font-size: 40px;
+    line-height: 55px;
+  }
+}
+
+.undefined-picture {
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+  height: auto;
+  @media screen and (min-width: 768px) {
+    width: 270px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 350px;
+  }
+}
+.loader {
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

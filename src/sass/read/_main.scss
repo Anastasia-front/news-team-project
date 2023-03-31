@@ -1,0 +1,51 @@
+.read-date {
+  border-bottom: 1px solid #929292;
+  position: absolute;
+}
+.date-list {
+  padding-top: 2px;
+}
+.date-list-search {
+  gap: 0px;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
+}
+.date-list__btn {
+  width: 288px;
+  @media screen and (min-width: 768px) {
+    width: 736px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 1248px;
+  }
+  background-color: var(--light-bg-color);
+
+  display: flex;
+  align-items: start;
+
+  padding-bottom: 12px;
+  border-bottom: 1px solid #929292;
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: calc(24 / 14);
+
+  letter-spacing: 0.02em;
+
+  color: var(--text-color);
+}
+.date-list__btn-block {
+  display: flex;
+  padding-top: 8px;
+}
+.turn {
+  transform: rotate(180deg);
+  margin-top: 16px;
+  margin-left: 15px;
+}
+.date-list__btn-text {
+  margin-right: 8px;
+}

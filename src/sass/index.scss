@@ -1,2 +1,30 @@
-@import './common';
-@import './example';
+//BACE
+@import "./bace/vars";
+@import "./bace/bace";
+@import "./bace/container";
+@import "./bace/fonts";
+@import "./bace/undefined-search";
+
+//GENERAL SECTIONS
+@import "./header";
+@import "./news-card";
+@import "./climate";
+@import "./footer";
+@import "./modal";
+
+//INDEX
+@import "./index/filters-date";
+@import "./index/filters";
+@import "./index/date";
+@import "./index/main";
+@import "./index/form";
+@import "./index/theme";
+
+//FAVORITE
+@import "./favorite/main";
+
+//READ
+@import "./read/main";
+
+//MODERN-NORMALIZE
+@import "~node_modules/modern-normalize/modern-normalize.css";
