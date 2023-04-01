@@ -1,18 +1,18 @@
-import { btnLike } from "./btn-favorite";
-import { markupOfCard } from "./markup-of-card";
-import { checkLokalStorage } from "./check-local-storage";
+import { btnLike } from './btn-favorite';
+import { markupOfCard } from './markup-of-card';
+import { checkLokalStorage } from './check-local-storage';
 
-const dateListEl = document.querySelector(".date-list-search");
-const readListSearchEl = document.querySelector(".date-list-search");
-const readFormEl = document.querySelector(".search-form");
-const readInputEl = document.querySelector(".search-input");
-const undefinedImages = document.querySelector(".undefined");
+const dateListEl = document.querySelector('.date-list-search');
+const readListSearchEl = document.querySelector('.date-list-search');
+const readFormEl = document.querySelector('.search-form');
+const readInputEl = document.querySelector('.search-input');
+const undefinedImages = document.querySelector('.undefined');
 
-const localData = JSON.parse(localStorage.getItem("readCards"));
+const localData = JSON.parse(localStorage.getItem('readCards'));
 
 function arrLocal() {
   if (localData === null) {
-    undefinedImages.style.display = "block";
+    undefinedImages.style.display = 'block';
     return;
   }
   return localData;
@@ -47,41 +47,41 @@ function markupDateRead(date) {
   <ul class="list-news hidden">${markupOfCard(date[key])}</ul>
 </li>`;
     })
-    .join("");
+    .join('');
   createMarkupLoadMore(markupBlockDate);
 }
 
-const dateListItem = document.querySelectorAll(".date-list__item");
-dateListItem[0].classList.add("hidden");
+const dateListItem = document.querySelectorAll('.date-list__item');
+// dateListItem[0].classList.add("hidden");
 
 dateListItem.forEach(element => {
   btnLike(localData);
-  let spanAdd = "";
-  let hiddenSpan = "";
-  let localFavorite = JSON.parse(localStorage.getItem("favoriteCards"));
+  let spanAdd = '';
+  let hiddenSpan = '';
+  let localFavorite = JSON.parse(localStorage.getItem('favoriteCards'));
   let checkFavorite = checkLokalStorage(element, localFavorite);
   if (checkFavorite) {
-    hiddenSpan = "favorite";
-    spanAdd = "Remove from favorite";
+    hiddenSpan = 'favorite';
+    spanAdd = 'Remove from favorite';
   } else {
-    spanAdd = "Add to favorite";
+    spanAdd = 'Add to favorite';
   }
 });
 
-dateListEl.addEventListener("click", event => {
+dateListEl.addEventListener('click', event => {
   const btn = event.target.closest(`.date-list__btn`);
   if (!btn) return;
 
-  const iconDate = btn.querySelector(".date-list__btn-block");
-  const listNews = document.querySelector(".list-news");
-  if (listNews.classList.contains("hidden")) {
-    listNews.classList.remove("hidden");
-    iconDate.classList.add("turn");
+  const iconDate = btn.querySelector('.date-list__btn-block');
+  const listNews = document.querySelector('.list-news');
+  if (listNews.classList.contains('hidden')) {
+    listNews.classList.remove('hidden');
+    iconDate.classList.add('turn');
   } else {
-    listNews.classList.add("hidden");
-    iconDate.classList.remove("turn");
+    listNews.classList.add('hidden');
+    iconDate.classList.remove('turn');
   }
-  btn.nextElementSibling.classList.toggle("hidden");
+  btn.nextElementSibling.classList.toggle('hidden');
   return;
 });
 
@@ -89,22 +89,22 @@ function createMarkupLoadMore(markupBlockDate) {
   dateListEl.innerHTML = markupBlockDate;
 }
 
-readFormEl.addEventListener("submit", form);
+readFormEl.addEventListener('submit', form);
 
 let newArrForMarkupSearch = [];
 function form(event) {
   event.preventDefault();
 
-  if (readInputEl.value.trim() !== "") {
-    dateListEl.classList.add("hidden");
-    undefinedImages.style.display = "block";
-    readListSearchEl.classList.add("hidden");
+  if (readInputEl.value.trim() !== '') {
+    dateListEl.classList.add('hidden');
+    undefinedImages.style.display = 'block';
+    readListSearchEl.classList.add('hidden');
     newArrForMarkupSearch = [];
     return;
   } else {
-    dateListEl.classList.remove("hidden");
-    undefinedImages.style.display = "none";
-    readListSearchEl.classList.remove("hidden");
+    dateListEl.classList.remove('hidden');
+    undefinedImages.style.display = 'none';
+    readListSearchEl.classList.remove('hidden');
   }
 
   const inputValue = readInputEl.value.toLowerCase();
@@ -121,15 +121,15 @@ function form(event) {
     }
   }
   if (newArrForMarkupSearch.length === 0) {
-    dateListEl.classList.add("hidden");
-    readListSearchEl.classList.add("hidden");
-    undefinedImages.style.display = "block";
+    dateListEl.classList.add('hidden');
+    readListSearchEl.classList.add('hidden');
+    undefinedImages.style.display = 'block';
     newArrForMarkupSearch = [];
     return;
   }
-  undefinedImages.style.display = "none";
-  dateListEl.classList.remove("hidden");
-  readListSearchEl.classList.remove("hidden");
+  undefinedImages.style.display = 'none';
+  dateListEl.classList.remove('hidden');
+  readListSearchEl.classList.remove('hidden');
 
   const markupBlockReadSearch = markupOfCard(newArrForMarkupSearch);
 
