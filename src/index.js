@@ -1,25 +1,25 @@
 //NEWS
-import "./JS/news/news";
+import './JS/news/news';
 
 //CLIMATE
-import "./JS/climate/climate";
+import './JS/climate/climate';
 
 //THEME
-import "./JS/theme";
+import './JS/theme';
 
 //HEADER
-import "./JS/header";
+import './JS/header';
 
 //FORM
 
-import "./JS/form";
+import './JS/form';
 
 //PAGINATION
-import "./JS/pagination/pagination";
+import './JS/pagination/pagination';
 
 //MODAL
-import "./JS/modal";
+import './JS/modal';
 
 //CAlendar
 
-import "./JS/calendar";
+import './JS/calendar';
