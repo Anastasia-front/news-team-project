@@ -2,7 +2,7 @@ import { btnLike } from './btn-favorite';
 import { markupOfCard } from './markup-of-card';
 import { checkLokalStorage } from './check-local-storage';
 
-const dateListEl = document.querySelector('.date-list-search');
+const dateListEl = document.querySelector('.date-list');
 const readListSearchEl = document.querySelector('.date-list-search');
 const readFormEl = document.querySelector('.search-form');
 const readInputEl = document.querySelector('.search-input');
@@ -32,6 +32,7 @@ function sortDateReadMore(array = [], callback) {
 }
 
 const sortDate = sortDateReadMore(arrLocal(), objectEl => objectEl.dayRead);
+
 markupDateRead(sortDate);
 function markupDateRead(date) {
   const markupBlockDate = Object.keys(date)
@@ -49,10 +50,49 @@ function markupDateRead(date) {
     })
     .join('');
   createMarkupLoadMore(markupBlockDate);
+  sortItem();
 }
 
 const dateListItem = document.querySelectorAll('.date-list__item');
-// dateListItem[0].classList.add("hidden");
+function sortItem() {
+  const textDate = document.querySelectorAll('.date-list__btn-text');
+  const dateArr = [];
+  const sortDate = [];
+  let milliseconds = 0;
+  textDate.forEach(element => {
+    let dateString = element.innerHTML;
+    let dateParts = dateString.split('/');
+    let date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    milliseconds = date.getTime();
+    dateArr.push(milliseconds);
+  });
+
+  const filterDate = dateArr.sort((a, b) => b - a);
+
+  filterDate.forEach(element => {
+    let newDate = new Date(element);
+    let day = newDate.getDate().toString().padStart(2, '0');
+    let month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+    let year = newDate.getFullYear().toString();
+    let reverseDateString = day + '/' + month + '/' + year;
+    sortDate.push(reverseDateString);
+  });
+
+  for (let index = 0; index < textDate.length; index++) {
+    const element = textDate[index];
+    if (element.innerHTML === sortDate[index]) {
+      console.log(element.innerHTML !== sortDate[index]);
+      continue;
+    } else {
+      const dateListItem = document.querySelectorAll('.date-list__item');
+      const block1 = dateListItem[index];
+      const block2 = dateListItem[index + 1];
+      const parent = block1.parentNode;
+      parent.insertBefore(block2, block1);
+      return;
+    }
+  }
+}
 
 dateListItem.forEach(element => {
   btnLike(localData);
@@ -69,19 +109,38 @@ dateListItem.forEach(element => {
 });
 
 dateListEl.addEventListener('click', event => {
-  const btn = event.target.closest(`.date-list__btn`);
+  const btn = event.target.closest('.date-list__btn');
   if (!btn) return;
 
   const iconDate = btn.querySelector('.date-list__btn-block');
-  const listNews = document.querySelector('.list-news');
-  if (listNews.classList.contains('hidden')) {
-    listNews.classList.remove('hidden');
-    iconDate.classList.add('turn');
-  } else {
-    listNews.classList.add('hidden');
-    iconDate.classList.remove('turn');
+  const iconsDate = btn.querySelectorAll('.date-list__btn-block');
+  const listNews = document.querySelectorAll('.list-news');
+
+  if (!btn.nextElementSibling.classList.contains('hidden')) {
+    btn.nextElementSibling.classList.add('hidden');
+    return;
   }
+  iconsDate.forEach(elem => {
+    if (elem.parentNode.nextElementSibling.classList.contains('hidden')) {
+      elem.classList.remove('turn');
+    }
+  });
+
+  function isHiddenItem(arr) {
+    arr.filter(list => {
+      list.classList.contains('hidden');
+    });
+  }
+
+  if (!isHiddenItem(Array.from(listNews))) {
+    listNews.forEach(elem => {
+      elem.classList.add('hidden');
+    });
+  }
+
   btn.nextElementSibling.classList.toggle('hidden');
+  iconDate.classList.toggle('turn');
+
   return;
 });
 
@@ -92,19 +151,20 @@ function createMarkupLoadMore(markupBlockDate) {
 readFormEl.addEventListener('submit', form);
 
 let newArrForMarkupSearch = [];
+
 function form(event) {
   event.preventDefault();
 
-  if (readInputEl.value.trim() !== '') {
-    dateListEl.classList.add('hidden');
-    undefinedImages.style.display = 'block';
+  if (readInputEl.value.trim() === '') {
+    dateListEl.classList.remove('hidden');
+    undefinedImages.style.display = 'none';
     readListSearchEl.classList.add('hidden');
-    newArrForMarkupSearch = [];
     return;
   } else {
     dateListEl.classList.remove('hidden');
-    undefinedImages.style.display = 'none';
-    readListSearchEl.classList.remove('hidden');
+    undefinedImages.style.display = 'block';
+    readListSearchEl.classList.add('hidden');
+    newArrForMarkupSearch = [];
   }
 
   const inputValue = readInputEl.value.toLowerCase();
@@ -128,7 +188,7 @@ function form(event) {
     return;
   }
   undefinedImages.style.display = 'none';
-  dateListEl.classList.remove('hidden');
+  dateListEl.classList.add('hidden');
   readListSearchEl.classList.remove('hidden');
 
   const markupBlockReadSearch = markupOfCard(newArrForMarkupSearch);
