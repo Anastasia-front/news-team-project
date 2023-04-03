@@ -8,7 +8,6 @@ import { getNews } from "./fetch-news-popular";
 import { renderPopList } from "./render-popular";
 
 const input = document.querySelector(".search-input");
-// const btnSearch = document.querySelector(".open-input");
 const form = document.querySelector(".search-form");
 const newsCard = document.querySelector(".card-news");
 const undefinedImages = document.querySelector(".undefined");
@@ -155,6 +154,6 @@ function renderImageList(card) {
   weatherContainer.style.display = "block";
   pagination.classList.remove("hidden");
 
-  btnLike(newArray);
+  btnLike();
   btnRead(newArray);
 }

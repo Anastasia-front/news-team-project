@@ -1,25 +1,12 @@
-// // Получаем данные из localStorage и преобразуем их из JSON-строки в объект
-// const storedData = JSON.parse(localStorage.getItem("favoriteCards"));
+import { checkLokalStorage } from "./check-local-storage";
+import { btnLike } from "./btn-favorite";
+import { btnRead } from "./btn-read";
+const undefinedImages = document.querySelector(".undefined");
 
-// // Сортируем объекты по дате сохранения (предполагается, что у каждого объекта есть свойство "date")
-// storedData.sort((a, b) => new Date(b.pub_date) - new Date(a.pub_date));
+const inputEl = document.querySelector(".search-input"),
+  formEl = document.querySelector(".search-form");
 
-// // Выводим объекты на страницу
-// const container = document.querySelector(".container");
-// storedData.forEach(item => {
-//   const element = document.createElement("div");
-//   element.textContent = item.data;
-//   container.appendChild(element);
-// });
-import { checkLokalStorage } from './check-local-storage';
-import { btnLike } from './btn-favorite';
-import { btnRead } from './btn-read';
-const undefinedImages = document.querySelector('.undefined');
-
-const inputEl = document.querySelector('.search-input'),
-  formEl = document.querySelector('.search-form');
-
-formEl.addEventListener('submit', event => {
+formEl.addEventListener("submit", event => {
   event.preventDefault();
 
   let value = inputEl.value.toLowerCase().trim();
@@ -28,20 +15,20 @@ formEl.addEventListener('submit', event => {
   let hits = checkArr(arr, value);
 
   if (hits.length === 0) {
-    newList.innerHTML = '';
-    undefinedImages.style.display = 'block';
+    newList.innerHTML = "";
+    undefinedImages.style.display = "block";
     return;
   }
-  if (value === '' || value === null) {
-    undefinedImages.style.display = 'block';
+  if (value === "" || value === null) {
+    undefinedImages.style.display = "block";
   }
   let markup = createMarkup(hits);
   newList.innerHTML = markup;
-  undefinedImages.style.display = 'none';
+  undefinedImages.style.display = "none";
 });
 
 function getLocalarr() {
-  return JSON.parse(localStorage.getItem('favoriteCards'));
+  return JSON.parse(localStorage.getItem("favoriteCards"));
 }
 function checkArr(arr, value) {
   return arr.reduce((hits, elem) => {
@@ -56,20 +43,20 @@ function checkArr(arr, value) {
   }, []);
 }
 
-const newList = document.querySelector('.card-news');
+const newList = document.querySelector(".card-news");
 
-newList.addEventListener('click', removeToFavorite);
-const dataInLocal = JSON.parse(localStorage.getItem('favoriteCards'));
+newList.addEventListener("click", removeToFavorite);
+const dataInLocal = JSON.parse(localStorage.getItem("favoriteCards"));
 
 if (dataInLocal === null) {
-  undefinedImages.style.display = 'block';
+  undefinedImages.style.display = "block";
   return;
 }
 function removeToFavorite(e) {
   const btn = e.target.closest(`.card-news__add-to-favorite-btn`);
   if (!btn) return;
   if (!dataInLocal) {
-    undefinedImages.style.display = 'block';
+    undefinedImages.style.display = "block";
   }
   let title = btn.parentNode.nextElementSibling.firstElementChild.textContent;
 
@@ -81,21 +68,21 @@ function removeToFavorite(e) {
   localStorage.setItem(`favoriteCards`, JSON.stringify(dataInLocal));
   btn.parentNode.parentNode.remove();
   if (newList.childElementCount === 0) {
-    undefinedImages.style.display = 'block';
+    undefinedImages.style.display = "block";
     return;
   }
 }
 
 function getLocalData() {
-  if (localStorage.getItem('favoriteCards') === null) return;
-  if (JSON.parse(localStorage.getItem('favoriteCards')).length === 0) {
-    console.log('error');
-    undefinedImages.style.display = 'block';
+  if (localStorage.getItem("favoriteCards") === null) return;
+  if (JSON.parse(localStorage.getItem("favoriteCards")).length === 0) {
+    console.log("error");
+    undefinedImages.style.display = "block";
     return;
   }
-  const data = JSON.parse(localStorage.getItem('favoriteCards'));
+  const data = JSON.parse(localStorage.getItem("favoriteCards"));
   const markup = createMarkup(data);
-  newList.insertAdjacentHTML('beforeend', markup);
+  newList.insertAdjacentHTML("beforeend", markup);
 }
 
 getLocalData();
@@ -103,23 +90,23 @@ getLocalData();
 function createMarkup(arr) {
   const newArr = arr
     .map(array => {
-      let opacity = '';
-      let hidden = 'hidden';
-      let localArr = JSON.parse(localStorage.getItem('readCards'));
+      let opacity = "";
+      let hidden = "hidden";
+      let localArr = JSON.parse(localStorage.getItem("readCards"));
       let check = checkLokalStorage(array, localArr);
       if (check === true) {
-        opacity = 'opacity';
-        hidden = '';
+        opacity = "opacity";
+        hidden = "";
       }
-      let spanAdd = '';
-      let hiddenSpan = '';
-      let localFavorite = JSON.parse(localStorage.getItem('favoriteCards'));
+      let spanAdd = "";
+      let hiddenSpan = "";
+      let localFavorite = JSON.parse(localStorage.getItem("favoriteCards"));
       let checkFavorite = checkLokalStorage(array, localFavorite);
       if (checkFavorite === true) {
-        hiddenSpan = 'favorite';
-        spanAdd = 'Remove from favorite';
+        hiddenSpan = "favorite";
+        spanAdd = "Remove from favorite";
       } else {
-        spanAdd = 'Add to favorite';
+        spanAdd = "Add to favorite";
       }
       return `<li class="card-news__item ">
         <img class="card-news__img ${opacity}" src="${array.photo}" alt="" loading="lazy" />
@@ -163,8 +150,8 @@ function createMarkup(arr) {
         </div>
         </li>`;
     })
-    .join('');
-  btnLike(newArr);
+    .join("");
+  btnLike();
   btnRead(newArr);
   return newArr;
 }
