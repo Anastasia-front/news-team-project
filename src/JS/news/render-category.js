@@ -1,26 +1,26 @@
-import { fetchImages } from './fetch-news-categories';
-import Notiflix from 'notiflix';
-const buttonsContainer = document.querySelector('[data-filter-btn-container]');
-const gallery = document.querySelector('.card-news');
-import { btnLike } from './btn-favorite';
-import { btnRead } from './btn-read';
-import { renderByWidth } from './window-width';
-import { checkLokalStorage } from './check-local-storage';
-const weatherContainer = document.querySelector('.weather_container');
-const loader = document.querySelector('.loader');
-const pagination = document.querySelector('.pagination');
-const undefinedImages = document.querySelector('.undefined');
+import { fetchImages } from "./fetch-news-categories";
+import Notiflix from "notiflix";
+const buttonsContainer = document.querySelector("[data-filter-btn-container]");
+const gallery = document.querySelector(".card-news");
+import { btnLike } from "./btn-favorite";
+import { btnRead } from "./btn-read";
+import { renderByWidth } from "./window-width";
+import { checkLokalStorage } from "./check-local-storage";
+const weatherContainer = document.querySelector(".weather_container");
+const loader = document.querySelector(".loader");
+const pagination = document.querySelector(".pagination");
+const undefinedImages = document.querySelector(".undefined");
 
-loader.classList.remove('hidden');
-pagination.classList.add('hidden');
-weatherContainer.style.display = 'none';
+loader.classList.remove("hidden");
+pagination.classList.add("hidden");
+weatherContainer.style.display = "none";
 
 setTimeout(() => {
-  buttonsContainer.addEventListener('click', choiceFilter);
+  buttonsContainer.addEventListener("click", choiceFilter);
 }, 1000);
 
 function choiceFilter(e) {
-  if (e.target.nodeName !== 'BUTTON' || e.target.name === '') {
+  if (e.target.nodeName !== "BUTTON" || e.target.name === "") {
     return;
   } else {
     const category = `${e.target.name}.json?`;
@@ -32,14 +32,14 @@ function proccesImageCreate(foundData) {
   const createCard = foundData.results;
   if (!createCard.length) {
     Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
+      "Sorry, there are no images matching your search query. Please try again."
     );
-    gallery.innerHTML = '';
-    undefinedImages.style.display = 'block';
-    weatherContainer.style.display = 'none';
+    gallery.innerHTML = "";
+    undefinedImages.style.display = "block";
+    weatherContainer.style.display = "none";
   } else {
-    undefinedImages.style.display = 'none';
-    weatherContainer.style.display = 'block';
+    undefinedImages.style.display = "none";
+    weatherContainer.style.display = "block";
     renderImageList(createCard);
   }
 }
@@ -51,43 +51,41 @@ function renderImageList(card) {
   const firstRender = card.splice(0, numberOfCards);
   const markup = firstRender
     .map(card => {
-      let opacity = '';
-      let hidden = 'hidden';
-      let localArr = JSON.parse(localStorage.getItem('readCards'));
+      let opacity = "";
+      let hidden = "hidden";
+      let localArr = JSON.parse(localStorage.getItem("readCards"));
       let check = checkLokalStorage(card, localArr);
       if (check === true) {
-        opacity = 'opacity';
-        hidden = '';
+        opacity = "opacity";
+        hidden = "";
       }
-      let spanAdd = '';
-      let hiddenSpan = '';
-      let localFavorite = JSON.parse(localStorage.getItem('favoriteCards'));
+      let spanAdd = "";
+      let hiddenSpan = "";
+      let localFavorite = JSON.parse(localStorage.getItem("favoriteCards"));
       let checkFavorite = checkLokalStorage(card, localFavorite);
       if (checkFavorite === true) {
-        hiddenSpan = 'favorite';
-        spanAdd = 'Remove from favorite';
+        hiddenSpan = "favorite";
+        spanAdd = "Remove from favorite";
       } else {
-        spanAdd = 'Add to favorite';
+        spanAdd = "Add to favorite";
       }
 
       const array = {
         headline:
-          card.length > 50
-            ? card.title.slice(0, 50) + '...'
-            : card.title || 'This title is not defined',
+          card.length > 50 ? card.title.slice(0, 50) + "..." : card.title,
         abstract:
           card.abstract.length > 100
-            ? card.abstract.slice(0, 100) + '...'
-            : card.abstract || 'This description is not defined',
+            ? card.abstract.slice(0, 100) + "..."
+            : card.abstract,
         category: card.section,
         pub_date: card.published_date
-          .split('')
+          .split("")
           .splice(0, 10)
-          .join('')
-          .replaceAll('-', '/'),
+          .join("")
+          .replaceAll("-", "/"),
         photo: card.multimedia
           ? `${card.multimedia[2].url}`
-          : 'https://img.freepik.com/free-vector/internet-network-warning-404-error-page-or-file-not-found-for-web-page_1150-48326.jpg?w=996&t=st=1676297842~exp=1676298442~hmac=6cad659e6a3076ffcb73bbb246c4f7e5e1bf7cee7fa095d67fcced0a51c2405c',
+          : "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-or-file-not-found-for-web-page_1150-48326.jpg?w=996&t=st=1676297842~exp=1676298442~hmac=6cad659e6a3076ffcb73bbb246c4f7e5e1bf7cee7fa095d67fcced0a51c2405c",
 
         url: card.url,
       };
@@ -134,13 +132,13 @@ function renderImageList(card) {
     </div>
     </li>`;
     })
-    .join('');
+    .join("");
   gallery.innerHTML = markup;
 
-  loader.classList.add('hidden');
-  weatherContainer.style.display = 'block';
-  pagination.classList.remove('hidden');
+  loader.classList.add("hidden");
+  weatherContainer.style.display = "block";
+  pagination.classList.remove("hidden");
 
-  btnLike(newArray);
+  btnLike();
   btnRead(newArray);
 }

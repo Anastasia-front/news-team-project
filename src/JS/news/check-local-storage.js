@@ -8,9 +8,3 @@ export function checkLokalStorage(elem, localArr) {
     }
   }
 }
-export function checkLokalArray(localArr) {
-  if (localArr === null) return;
-  else {
-    localStorage.setItem("favoriteCards", JSON.stringify(localArr));
-  }
-}

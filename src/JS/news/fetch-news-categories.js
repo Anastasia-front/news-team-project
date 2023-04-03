@@ -7,8 +7,6 @@ export async function fetchImages(value, page) {
       `${BASE_URL}${value}&api-key=${KEY_URL}&page=${page}`
     );
     const result = await response.json();
-    // const newCard = result.data;
-    // console.log(newCard);
     return result;
   } catch (error) {
     console.log(error);

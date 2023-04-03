@@ -10,6 +10,5 @@ export async function getNews() {
   const request = await axios.get(BASE_URL, { params });
 
   const response = await request.data.results;
-  // console.log(response);
   return response;
 }
