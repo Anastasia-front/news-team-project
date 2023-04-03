@@ -2,7 +2,8 @@ import {fetchImages} from '../news/fetch-news-search'
 import axios from 'axios';
 const input = document.querySelector('.search-input');
 const next = document.querySelector('.next').addEventListener('click', paginationSearch)
-const prew = document.querySelector('.prew').addEventListener('click', decrementPage)
+// const prew = document.querySelector('.prew').addEventListener('click', decrementPage)
+const pageNumbers = document.querySelector('.numbers')
 
 class NewApiService {
   constructor() {
@@ -49,20 +50,40 @@ decrementPage(){
 }
 
 const newApiService = new NewApiService();
+let array = ''
 
-
-async function paginationSearch(){
+async function paginationSearch(p){
   newApiService.query = input.value
 
   const fetch = await newApiService.fetchArticles();
   const hits = await fetch.response.meta.hits
   console.log(hits)
-  
+  let pagesArray = [];
+  const numbersOfPages = Math.ceil(hits/1000);
+  pagesArray.length = numbersOfPages
+
+  console.log(numbersOfPages)
+  pagesArray.push(numbersOfPages)
+  console.log(pagesArray)
   newApiService.incrementPage()
-  
+
+for(let i = 1; i<pagesArray.length;i++ )
+ {
+ pageNumbers.innerHTML += `
+ <button class="num">${i}<button>`
+ }
+
+  return p
 }
 
-newApiService.fetchArticles()
+console.log(array)
+
+
+// function mark (){
+//   pageNumbers.insertAdjacentHTML('beforeend', paginationSearch(p))
+// }
+// mark()
+
 
 async function decrementPage(){
   newApiService.query = input.value
