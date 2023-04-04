@@ -11,6 +11,7 @@
 .topmenu {
   display: flex;
   gap: 16px;
+  align-items: center;
 }
 
 .topmenu-li {
@@ -47,18 +48,17 @@
 }
 .submenu-link {
   padding-right: 10px;
+  &:hover .categories__button-arrow {
+    fill: var(--light-text-color);
+  }
 }
+
 .submenu {
   background: var(--white-color);
   border-radius: 20px;
   position: absolute;
-  left: 0;
-  top: 100%;
   z-index: 55;
   width: 168px;
-  opacity: 0;
-  transform: scaleY(0);
-  transform-origin: 0 0;
   transition: 0.5s ease-in-out;
 }
 
@@ -80,11 +80,6 @@
 
 .submenu li:last-child button {
   border-bottom: none;
-}
-
-.topmenu > li:hover .submenu {
-  opacity: 1;
-  transform: scaleY(1);
 }
 
 .cont_disk {

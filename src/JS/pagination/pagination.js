@@ -1,9 +1,11 @@
-import {fetchImages} from '../news/fetch-news-search'
+import { fetchImages } from '../news/fetch-news-search';
 import axios from 'axios';
 const input = document.querySelector('.search-input');
-const next = document.querySelector('.next').addEventListener('click', paginationSearch)
+const next = document
+  .querySelector('.next')
+  .addEventListener('click', paginationSearch);
 // const prew = document.querySelector('.prew').addEventListener('click', decrementPage)
-const pageNumbers = document.querySelector('.numbers')
+const pageNumbers = document.querySelector('.numbers');
 
 class NewApiService {
   constructor() {
@@ -13,17 +15,17 @@ class NewApiService {
 
   async fetchArticles() {
     const apiKey = 'h82LSxHnwytWrbBDAaEM0yRoLcpNOT6L';
-    const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?';
+    const BASE_URL =
+      'https://api.nytimes.com/svc/search/v2/articlesearch.json?';
     const params = {
       'api-key': `${apiKey}`,
       q: `${this.searchQuery}`,
       page: `${this.page}`,
-    
     };
 
     const request = await axios.get(BASE_URL, { params });
     const response = await request.data;
-console.log(response)
+    console.log(response);
     return response;
   }
 
@@ -32,10 +34,10 @@ console.log(response)
     console.log(this.page);
   }
 
-decrementPage(){
-  this.page -=1
-  console.log(this.page)
-}
+  decrementPage() {
+    this.page -= 1;
+    console.log(this.page);
+  }
 
   resetIncrementPage() {
     this.page = 1;
@@ -50,65 +52,47 @@ decrementPage(){
 }
 
 const newApiService = new NewApiService();
-let array = ''
+let array = '';
 
-async function paginationSearch(p){
-  newApiService.query = input.value
+async function paginationSearch(p) {
+  newApiService.query = input.value;
 
   const fetch = await newApiService.fetchArticles();
-  const hits = await fetch.response.meta.hits
-  console.log(hits)
+  const hits = await fetch.response.meta.hits;
+  console.log(hits);
   let pagesArray = [];
-  const numbersOfPages = Math.ceil(hits/1000);
-  pagesArray.length = numbersOfPages
+  const numbersOfPages = Math.ceil(hits / 1000);
+  pagesArray.length = numbersOfPages;
 
-  console.log(numbersOfPages)
-  pagesArray.push(numbersOfPages)
-  console.log(pagesArray)
-  newApiService.incrementPage()
+  console.log(numbersOfPages);
+  pagesArray.push(numbersOfPages);
+  console.log(pagesArray);
+  newApiService.incrementPage();
 
-for(let i = 1; i<pagesArray.length;i++ )
- {
- pageNumbers.innerHTML += `
- <button class="num">${i}<button>`
- }
+  for (let i = 1; i < pagesArray.length; i++) {
+    pageNumbers.innerHTML += `
+ <button class="num">${i}<button>`;
+  }
 
-  return p
+  return p;
 }
 
-console.log(array)
-
+// console.log(array)
 
 // function mark (){
 //   pageNumbers.insertAdjacentHTML('beforeend', paginationSearch(p))
 // }
 // mark()
 
-
-async function decrementPage(){
-  newApiService.query = input.value
+async function decrementPage() {
+  newApiService.query = input.value;
 
   const fetch = await newApiService.fetchArticles();
-  const hits = await fetch.response.meta.hits
-  console.log(hits)
-  
-  newApiService.decrementPage()
+  const hits = await fetch.response.meta.hits;
+  console.log(hits);
+
+  newApiService.decrementPage();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // import * as pop from "./pag-popular";
 // // export { num2, num3, num4 };
