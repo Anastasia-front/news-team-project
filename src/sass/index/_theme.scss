@@ -47,7 +47,24 @@
 
     opacity: 0.4;
   }
+  .topmenu-li button {
+    background-color: #7a7a7a;
+    border: 1px solid var(--light-text-color);
+  }
+  .calendar-input {
+    background-color: #7a7a7a64;
+    border: 1px solid var(--light-text-color);
+    color: var(--light-text-color);
+  }
+  .submenu {
+    background-color: #7a7a7a;
+  }
+  .submenu button {
+    color: var(--light-text-color);
+    border: none;
+  }
 
+  .topmenu-li button,
   .undefined-title,
   .card-news__caption,
   .card-news__text,
@@ -55,6 +72,12 @@
   .card-news__text {
     color: var(--light-text-color);
   }
+  .calendar__button-calendar,
+  .calendar__button-arrow,
+  .categories__button-arrow {
+    fill: var(--light-text-color);
+  }
+
   .mob-menu {
     background-color: #2e2e2e;
   }

@@ -1,19 +1,19 @@
-import { getNews } from "./fetch-news-popular";
-import { btnLike } from "./btn-favorite";
-import { btnRead } from "./btn-read";
-import { renderByWidth } from "./window-width";
-import { checkLokalStorage } from "./check-local-storage";
+import { getNews } from './fetch-news-popular';
+import { btnLike } from './btn-favorite';
+import { btnRead } from './btn-read';
+import { renderByWidth } from './window-width';
+import { checkLokalStorage } from './check-local-storage';
 
-const newsCard = document.querySelector(".card-news");
-const loader = document.querySelector(".loader");
-const weatherContainer = document.querySelector(".weather_container");
-const pagination = document.querySelector(".pagination");
-weatherContainer.style.display = "none";
-loader.classList.remove("hidden");
-pagination.classList.add("hidden");
+const newsCard = document.querySelector('.card-news');
+const loader = document.querySelector('.loader');
+const weatherContainer = document.querySelector('.weather_container');
+const pagination = document.querySelector('.pagination');
+weatherContainer.style.display = 'none';
+loader.classList.remove('hidden');
+pagination.classList.add('hidden');
 
 setTimeout(() => {
-  window.addEventListener("load", getNews().then(renderPopList));
+  window.addEventListener('load', getNews().then(renderPopList));
 }, 1000);
 
 export function renderPopList(card) {
@@ -24,42 +24,41 @@ export function renderPopList(card) {
 
   const markup = firstRender
     .map(card => {
-      let opacity = "";
-      let hidden = "hidden";
-      let localArr = JSON.parse(localStorage.getItem("readCards"));
+      let opacity = '';
+      let hidden = 'hidden';
+      let localArr = JSON.parse(localStorage.getItem('readCards'));
       let check = checkLokalStorage(card, localArr);
       if (check) {
-        opacity = "opacity";
-        hidden = "";
+        opacity = 'opacity';
+        hidden = '';
       }
-      let spanAdd = "";
-      let hiddenSpan = "";
-      let localFavorite = JSON.parse(localStorage.getItem("favoriteCards"));
+      let spanAdd = '';
+      let hiddenSpan = '';
+      let localFavorite = JSON.parse(localStorage.getItem('favoriteCards'));
       let checkFavorite = checkLokalStorage(card, localFavorite);
       if (checkFavorite) {
-        hiddenSpan = "favorite";
-        spanAdd = "Remove from favorite";
+        hiddenSpan = 'favorite';
+        spanAdd = 'Remove from favorite';
       } else {
-        spanAdd = "Add to favorite";
+        spanAdd = 'Add to favorite';
       }
 
       const array = {
-        headline:
-          card.title.length > 50 ? card.title.slice(0, 50) + "..." : card.title,
+        headline: card.title,
         abstract:
-          card.abstract.length > 100
-            ? card.abstract.slice(0, 100) + "..."
+          card.abstract.length > 70
+            ? card.abstract.slice(0, 70) + '...'
             : card.abstract,
         category: card.section,
         pub_date: card.published_date
-          .split("")
+          .split('')
           .splice(0, 10)
-          .join("")
-          .replaceAll("-", "/"),
+          .join('')
+          .replaceAll('-', '/'),
         url: card.url,
         photo: card.media
-          ? `${card.media[0]["media-metadata"][2].url}`
-          : "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-or-file-not-found-for-web-page_1150-48326.jpg?w=996&t=st=1676297842~exp=1676298442~hmac=6cad659e6a3076ffcb73bbb246c4f7e5e1bf7cee7fa095d67fcced0a51c2405c",
+          ? `${card.media[0]['media-metadata'][2].url}`
+          : 'https://img.freepik.com/free-vector/internet-network-warning-404-error-page-or-file-not-found-for-web-page_1150-48326.jpg?w=996&t=st=1676297842~exp=1676298442~hmac=6cad659e6a3076ffcb73bbb246c4f7e5e1bf7cee7fa095d67fcced0a51c2405c',
         url: card.url,
       };
       newArray.push(array);
@@ -105,13 +104,13 @@ export function renderPopList(card) {
     </div>
     </li>`;
     })
-    .join("");
+    .join('');
 
   newsCard.innerHTML = markup;
 
-  loader.classList.add("hidden");
-  weatherContainer.style.display = "block";
-  pagination.classList.remove("hidden");
+  loader.classList.add('hidden');
+  weatherContainer.style.display = 'block';
+  pagination.classList.remove('hidden');
 
   btnLike();
   btnRead(newArray);

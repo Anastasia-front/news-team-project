@@ -83,7 +83,7 @@
   line-height: 1.4;
   overflow: hidden;
   @media screen and (min-width: 768px) {
-    font-size: 32px;
+    font-size: 28px;
   }
 }
 
@@ -131,7 +131,7 @@
 }
 .favorite {
   .card-news__add-to-favorite-btn {
-    content: "Remove from favorite";
+    content: 'Remove from favorite';
   }
   .card-news__icon-like {
     fill: var(--color1, #4440f7);

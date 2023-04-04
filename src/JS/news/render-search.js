@@ -1,40 +1,35 @@
-import { fetchImages } from "./fetch-news-search";
-import Notiflix from "notiflix";
-import { btnLike } from "./btn-favorite";
-import { btnRead } from "./btn-read";
-import { renderByWidth } from "./window-width";
-import { checkLokalStorage } from "./check-local-storage";
-import { getNews } from "./fetch-news-popular";
-import { renderPopList } from "./render-popular";
+import { fetchImages } from './fetch-news-search';
+import Notiflix from 'notiflix';
+import { btnLike } from './btn-favorite';
+import { btnRead } from './btn-read';
+import { renderByWidth } from './window-width';
+import { checkLokalStorage } from './check-local-storage';
+import { getNews } from './fetch-news-popular';
+import { renderPopList } from './render-popular';
 
-const input = document.querySelector(".search-input");
-const form = document.querySelector(".search-form");
-const newsCard = document.querySelector(".card-news");
-const undefinedImages = document.querySelector(".undefined");
-const weatherContainer = document.querySelector(".weather_container");
-const loader = document.querySelector(".loader");
-const pagination = document.querySelector(".pagination");
+const input = document.querySelector('.search-input');
+const form = document.querySelector('.search-form');
+const newsCard = document.querySelector('.card-news');
+const undefinedImages = document.querySelector('.undefined');
+const weatherContainer = document.querySelector('.weather_container');
+const loader = document.querySelector('.loader');
+const pagination = document.querySelector('.pagination');
 
-loader.classList.remove("hidden");
-pagination.classList.add("hidden");
-weatherContainer.style.display = "none";
+loader.classList.remove('hidden');
+pagination.classList.add('hidden');
+weatherContainer.style.display = 'none';
 
 setTimeout(() => {
-  form.addEventListener("submit", onBtnCreate);
+  form.addEventListener('submit', onBtnCreate);
 }, 1000);
 
 function onBtnCreate(event) {
   event.preventDefault();
   const searchFormInput = input.value.trim();
   if (!searchFormInput) {
-    return;
-  }
-  if (
-    searchFormInput === "" ||
-    searchFormInput === null ||
-    searchFormInput === undefined
-  ) {
     getNews().then(renderPopList);
+    undefinedImages.style.display = 'none';
+    return;
   }
   fetchImages(searchFormInput, 0).then(proccesImageCreate);
 }
@@ -44,15 +39,16 @@ function proccesImageCreate(foundData) {
 
   if (!createCard.length) {
     Notiflix.Notify.failure(
-      "Sorry, there are no images matching your search query. Please try again."
+      'Sorry, there are no images matching your search query. Please try again.'
     );
-    newsCard.innerHTML = "";
-    undefinedImages.style.display = "block";
-    weatherContainer.style.display = "none";
+    newsCard.innerHTML = '';
+    undefinedImages.style.display = 'block';
+    weatherContainer.style.display = 'none';
+    pagination.classList.add('hidden');
   } else {
-    undefinedImages.style.display = "none";
-    weatherContainer.style.display = "block";
-
+    undefinedImages.style.display = 'none';
+    weatherContainer.style.display = 'block';
+    pagination.classList.remove('hidden');
     renderImageList(createCard);
   }
 }
@@ -64,42 +60,39 @@ function renderImageList(card) {
   const firstRender = card.splice(0, numberOfCards);
   const markup = firstRender
     .map(card => {
-      let opacity = "";
-      let hidden = "hidden";
-      let localArr = JSON.parse(localStorage.getItem("readCards"));
+      let opacity = '';
+      let hidden = 'hidden';
+      let localArr = JSON.parse(localStorage.getItem('readCards'));
       let check = checkLokalStorage(card, localArr);
       if (check) {
-        opacity = "opacity";
-        hidden = "";
+        opacity = 'opacity';
+        hidden = '';
       }
-      let spanAdd = "";
-      let hiddenSpan = "";
-      let localFavorite = JSON.parse(localStorage.getItem("favoriteCards"));
+      let spanAdd = '';
+      let hiddenSpan = '';
+      let localFavorite = JSON.parse(localStorage.getItem('favoriteCards'));
       let checkFavorite = checkLokalStorage(card, localFavorite);
       if (checkFavorite) {
-        hiddenSpan = "favorite";
-        spanAdd = "Remove from favorite";
+        hiddenSpan = 'favorite';
+        spanAdd = 'Remove from favorite';
       } else {
-        spanAdd = "Add to favorite";
+        spanAdd = 'Add to favorite';
       }
       const array = {
-        headline:
-          card.headline.main.length > 50
-            ? card.headline.main.slice(0, 50) + "..."
-            : card.headline.main,
+        headline: card.headline.main,
         abstract:
-          card.abstract.length > 100
-            ? card.abstract.slice(0, 100) + "..."
+          card.abstract.length > 70
+            ? card.abstract.slice(0, 70) + '...'
             : card.abstract,
         category: card.section_name,
         pub_date: card.pub_date
-          .split("")
+          .split('')
           .splice(0, 10)
-          .join("")
-          .replaceAll("-", "/"),
+          .join('')
+          .replaceAll('-', '/'),
         photo: card.multimedia.length
           ? `https://static01.nyt.com/${card.multimedia[0].url}`
-          : "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-or-file-not-found-for-web-page_1150-48326.jpg?w=996&t=st=1676297842~exp=1676298442~hmac=6cad659e6a3076ffcb73bbb246c4f7e5e1bf7cee7fa095d67fcced0a51c2405c",
+          : 'https://img.freepik.com/free-vector/internet-network-warning-404-error-page-or-file-not-found-for-web-page_1150-48326.jpg?w=996&t=st=1676297842~exp=1676298442~hmac=6cad659e6a3076ffcb73bbb246c4f7e5e1bf7cee7fa095d67fcced0a51c2405c',
         url: card.web_url,
       };
 
@@ -147,12 +140,12 @@ function renderImageList(card) {
     </div>
     </li>`;
     })
-    .join("");
+    .join('');
   newsCard.innerHTML = markup;
 
-  loader.classList.add("hidden");
-  weatherContainer.style.display = "block";
-  pagination.classList.remove("hidden");
+  loader.classList.add('hidden');
+  weatherContainer.style.display = 'block';
+  pagination.classList.remove('hidden');
 
   btnLike();
   btnRead(newArray);
