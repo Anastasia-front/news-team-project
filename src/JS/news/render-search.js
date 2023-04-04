@@ -19,6 +19,15 @@ loader.classList.remove('hidden');
 pagination.classList.add('hidden');
 weatherContainer.style.display = 'none';
 
+form.addEventListener('input', () => {
+  if (input.value.length > 40) {
+    Notiflix.Notify.info(
+      'The maximum field length is 40 characters. Please enter a shorter query in the search.'
+    );
+    input.value = input.value.substring(0, 40);
+  }
+});
+
 setTimeout(() => {
   form.addEventListener('submit', onBtnCreate);
 }, 1000);
