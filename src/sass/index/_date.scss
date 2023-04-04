@@ -177,7 +177,7 @@
   font-size: 16px;
   line-height: 1.38;
   letter-spacing: -0.408px;
-  font-feature-settings: "case" on;
+  font-feature-settings: 'case' on;
   color: #000000;
 }
 
@@ -229,7 +229,8 @@
   font-size: 14px;
   line-height: 1.79;
   letter-spacing: 0.38px;
-  color: #000000;
+  background-color: #fff;
+  color: #000;
   z-index: 1;
   position: relative;
   margin-bottom: 12px;
@@ -241,12 +242,11 @@
 
 .days li.active {
   color: var(--white-color);
-  transform: translateX(-12px);
 }
 
 .days li::before {
   position: absolute;
-  content: "";
+  content: '';
   left: 50%;
   top: 50%;
   height: 28px;
