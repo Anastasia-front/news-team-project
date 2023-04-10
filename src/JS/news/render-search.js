@@ -6,6 +6,7 @@ import { renderByWidth } from './window-width';
 import { checkLokalStorage } from './check-local-storage';
 import { getNews } from './fetch-news-popular';
 import { renderPopList } from './render-popular';
+import { paginationSearch} from '../pagination/pagination';
 
 const input = document.querySelector('.search-input');
 const form = document.querySelector('.search-form');
@@ -32,7 +33,7 @@ setTimeout(() => {
   form.addEventListener('submit', onBtnCreate);
 }, 1000);
 
-function onBtnCreate(event) {
+export function onBtnCreate(event) {
   event.preventDefault();
   const searchFormInput = input.value.trim();
   if (!searchFormInput) {
@@ -40,10 +41,10 @@ function onBtnCreate(event) {
     undefinedImages.style.display = 'none';
     return;
   }
-  fetchImages(searchFormInput, 0).then(proccesImageCreate);
+  fetchImages(searchFormInput, 0).then(proccesImageCreate).then(paginationSearch) ;
 }
 
-function proccesImageCreate(foundData) {
+export function proccesImageCreate(foundData) {
   const createCard = foundData.response.docs;
 
   if (!createCard.length) {
@@ -62,7 +63,7 @@ function proccesImageCreate(foundData) {
   }
 }
 
-function renderImageList(card) {
+export function renderImageList(card) {
   const newArray = [];
   const length = card.length;
   const numberOfCards = renderByWidth(length);
