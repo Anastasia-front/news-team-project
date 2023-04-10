@@ -1,98 +1,49 @@
 import { fetchImages } from '../news/fetch-news-search';
 import axios from 'axios';
 const input = document.querySelector('.search-input');
-const next = document
-  .querySelector('.next')
-  .addEventListener('click', paginationSearch);
-// const prew = document.querySelector('.prew').addEventListener('click', decrementPage)
 const pageNumbers = document.querySelector('.numbers');
+import { proccesImageCreate } from '../news/render-search';
 
-class NewApiService {
-  constructor() {
-    this.searchQuery = '';
-    this.page = 1;
-  }
-
-  async fetchArticles() {
-    const apiKey = 'h82LSxHnwytWrbBDAaEM0yRoLcpNOT6L';
-    const BASE_URL =
-      'https://api.nytimes.com/svc/search/v2/articlesearch.json?';
-    const params = {
-      'api-key': `${apiKey}`,
-      q: `${this.searchQuery}`,
-      page: `${this.page}`,
-    };
-
-    const request = await axios.get(BASE_URL, { params });
-    const response = await request.data;
-    console.log(response);
-    return response;
-  }
-
-  incrementPage() {
-    this.page += 1;
-    console.log(this.page);
-  }
-
-  decrementPage() {
-    this.page -= 1;
-    console.log(this.page);
-  }
-
-  resetIncrementPage() {
-    this.page = 1;
-  }
-  get query() {
-    return this.searchQuery;
-  }
-
-  set query(newQuery) {
-    this.searchQuery = newQuery;
-  }
-}
-
-const newApiService = new NewApiService();
 let array = '';
 
-async function paginationSearch(p) {
-  newApiService.query = input.value;
+export async function paginationSearch() {
+  const value = input.value;
+  let page = 1;
+  const fetch = await fetchImages(value, page);
+  const hits = fetch.response.meta.hits;
 
-  const fetch = await newApiService.fetchArticles();
-  const hits = await fetch.response.meta.hits;
-  console.log(hits);
   let pagesArray = [];
-  const numbersOfPages = Math.ceil(hits / 1000);
+  const numbersOfPages = Math.ceil(hits / 8);
   pagesArray.length = numbersOfPages;
 
-  console.log(numbersOfPages);
+  console.log(numbersOfPages, 'pages');
   pagesArray.push(numbersOfPages);
-  console.log(pagesArray);
-  newApiService.incrementPage();
+
+  // newApiService.incrementPage();
 
   for (let i = 1; i < pagesArray.length; i++) {
     pageNumbers.innerHTML += `
- <button class="num">${i}<button>`;
+   <button class="num">${i}<button>`;
+    const num = document.querySelectorAll('.num');
+    num.forEach(nums => {
+      nums.addEventListener('click', () => {
+        page = Number(nums.textContent);
+        fetchImages(value, page).then(proccesImageCreate);
+      });
+    });
   }
-
-  return p;
 }
 
-// console.log(array)
 
-// function mark (){
-//   pageNumbers.insertAdjacentHTML('beforeend', paginationSearch(p))
+// async function decrementPage() {
+//   newApiService.query = input.value;
+
+//   const fetch = await newApiService.fetchArticles();
+//   const hits = await fetch.response.meta.hits;
+//   console.log(hits);
+
+//   newApiService.decrementPage();
 // }
-// mark()
-
-async function decrementPage() {
-  newApiService.query = input.value;
-
-  const fetch = await newApiService.fetchArticles();
-  const hits = await fetch.response.meta.hits;
-  console.log(hits);
-
-  newApiService.decrementPage();
-}
 
 // // import * as pop from "./pag-popular";
 // // export { num2, num3, num4 };
