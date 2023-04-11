@@ -7,6 +7,7 @@ import { checkLokalStorage } from './check-local-storage';
 import { getNews } from './fetch-news-popular';
 import { renderPopList } from './render-popular';
 import { paginationSearch} from '../pagination/pagination';
+import { resetPage } from '../pagination/pagination';
 
 const input = document.querySelector('.search-input');
 const form = document.querySelector('.search-form');
@@ -35,6 +36,7 @@ setTimeout(() => {
 
 export function onBtnCreate(event) {
   event.preventDefault();
+  resetPage()
   const searchFormInput = input.value.trim();
   if (!searchFormInput) {
     getNews().then(renderPopList);
