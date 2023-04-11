@@ -1,11 +1,14 @@
 import { fetchImages } from '../news/fetch-news-search';
 import axios from 'axios';
 const input = document.querySelector('.search-input');
-const next = document.querySelector('.next').addEventListener('click', incrementPage)
-const prew = document.querySelector('.prew').addEventListener('click',decrementPage)
+const next = document
+  .querySelector('.next')
+  .addEventListener('click', incrementPage);
+const prew = document
+  .querySelector('.prew')
+  .addEventListener('click', decrementPage);
 const pageNumbers = document.querySelector('.numbers');
 import { proccesImageCreate } from '../news/render-search';
-
 
 let page = 1;
 
@@ -29,34 +32,38 @@ export async function paginationSearch() {
    <button class="num">${i}<button>`;
     const num = document.querySelectorAll('.num');
     num.forEach(nums => {
-      nums.addEventListener('click', () => {
-     
-        
+      nums.addEventListener('click', e => {
+        num.forEach(btn => {
+          if (btn.classList.contains('active')) {
+            btn.classList.remove('active');
+          }
+        });
+        e.target.classList.add('active');
         page = Number(nums.textContent);
-        console.log(page)
+
+        console.log(page);
         fetchImages(value, page).then(proccesImageCreate);
-        
       });
     });
   }
-
 }
 
-function incrementPage(){
+function incrementPage() {
   const value = input.value;
-  page +=1
-fetchImages(value,page).then(proccesImageCreate)
+  page += 1;
+  fetchImages(value, page).then(proccesImageCreate);
 }
 
-function decrementPage(){
+function decrementPage() {
   const value = input.value;
-  page -=1
-fetchImages(value,page).then(proccesImageCreate)
+  page -= 1;
+  fetchImages(value, page).then(proccesImageCreate);
 }
 
-export function resetPage(){
-  page=1
+export function resetPage() {
+  page = 1;
 }
+
 // async function decrementPage() {
 //   newApiService.query = input.value;
 
