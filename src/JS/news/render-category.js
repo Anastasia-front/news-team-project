@@ -6,6 +6,8 @@ import { btnLike } from './btn-favorite';
 import { btnRead } from './btn-read';
 import { renderByWidth } from './window-width';
 import { checkLokalStorage } from './check-local-storage';
+import { renderWetherPosition } from './render-popular';
+
 const weatherContainer = document.querySelector('.weather_container');
 const loader = document.querySelector('.loader');
 const pagination = document.querySelector('.pagination');
@@ -135,9 +137,10 @@ function renderImageList(card) {
   gallery.innerHTML = markup;
 
   loader.classList.add('hidden');
-  weatherContainer.style.display = 'block';
+  // weatherContainer.style.display = 'block';
   pagination.classList.remove('hidden');
 
+  renderWetherPosition();
   btnLike();
   btnRead(newArray);
 }

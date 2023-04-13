@@ -52,12 +52,20 @@ function incrementPage() {
   const value = input.value;
   page += 1;
   fetchImages(value, page).then(proccesImageCreate);
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 }
 
 function decrementPage() {
   const value = input.value;
   page -= 1;
   fetchImages(value, page).then(proccesImageCreate);
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 }
 
 export function resetPage() {

@@ -6,7 +6,7 @@ export function renderByWidth(length) {
     windowWidth = 5;
     wetherPosition = -1;
     if (length > windowWidth) {
-      return 5;
+      return 4;
     } else {
       return length;
     }
@@ -15,7 +15,7 @@ export function renderByWidth(length) {
     windowWidth = 8;
     wetherPosition = 0;
     if (length > windowWidth) {
-      return 8;
+      return 7;
     } else {
       return length;
     }
@@ -24,9 +24,22 @@ export function renderByWidth(length) {
     windowWidth = 9;
     wetherPosition = 1;
     if (length > windowWidth) {
-      return 9;
+      return 8;
     } else {
       return length;
     }
+  }
+}
+
+export function getWetherPosition() {
+  if (window.innerWidth < 768) {
+    return (wetherPosition = -1);
+  }
+
+  if (window.innerWidth >= 768 && window.innerWidth < 1280) {
+    return (wetherPosition = 0);
+  }
+  if (window.innerWidth >= 1280) {
+    return (wetherPosition = 1);
   }
 }
