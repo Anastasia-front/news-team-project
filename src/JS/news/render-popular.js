@@ -1,7 +1,7 @@
 import { getNews } from './fetch-news-popular';
 import { btnLike } from './btn-favorite';
 import { btnRead } from './btn-read';
-import { renderByWidth } from './window-width';
+import { renderByWidth, getWetherPosition } from './window-width';
 import { checkLokalStorage } from './check-local-storage';
 
 const newsCard = document.querySelector('.card-news');
@@ -107,11 +107,35 @@ export function renderPopList(card) {
     .join('');
 
   newsCard.innerHTML = markup;
-
+  renderWetherPosition();
   loader.classList.add('hidden');
-  weatherContainer.style.display = 'block';
+  // weatherContainer.style.display = 'block';
   pagination.classList.remove('hidden');
 
   btnLike();
   btnRead(newArray);
+}
+
+export function renderWetherPosition() {
+  let wetherPlaceDesk = '';
+  const weather = document.querySelector('.weather_container');
+  let secondElInList = '';
+  let weatherPos = getWetherPosition();
+
+  if (weatherPos >= 0) {
+    wetherPlaceDesk = document.querySelector('.card-news').children[weatherPos];
+    weatherContainer.style.display = 'block';
+    secondElInList = document.createElement('li');
+    secondElInList.classList.add('card-news__item');
+    secondElInList.innerHTML = weather;
+    wetherPlaceDesk.after(secondElInList);
+  } else {
+    wetherPlaceDesk = document.querySelector('.card-news').children[0];
+    weatherContainer.style.display = 'block';
+    secondElInList = document.createElement('li');
+    secondElInList.classList.add('card-news__item');
+    secondElInList.classList.add('margin-top');
+    secondElInList.innerHTML = weather;
+    wetherPlaceDesk.before(secondElInList);
+  }
 }

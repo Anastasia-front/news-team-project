@@ -6,8 +6,9 @@ import { renderByWidth } from './window-width';
 import { checkLokalStorage } from './check-local-storage';
 import { getNews } from './fetch-news-popular';
 import { renderPopList } from './render-popular';
-import { paginationSearch} from '../pagination/pagination';
+import { paginationSearch } from '../pagination/pagination';
 import { resetPage } from '../pagination/pagination';
+import { renderWetherPosition } from './render-popular';
 
 const input = document.querySelector('.search-input');
 const form = document.querySelector('.search-form');
@@ -36,14 +37,16 @@ setTimeout(() => {
 
 export function onBtnCreate(event) {
   event.preventDefault();
-  resetPage()
+  resetPage();
   const searchFormInput = input.value.trim();
   if (!searchFormInput) {
     getNews().then(renderPopList);
     undefinedImages.style.display = 'none';
     return;
   }
-  fetchImages(searchFormInput, 0).then(proccesImageCreate).then(paginationSearch) ;
+  fetchImages(searchFormInput, 0)
+    .then(proccesImageCreate)
+    .then(paginationSearch);
 }
 
 export function proccesImageCreate(foundData) {
@@ -156,9 +159,10 @@ export function renderImageList(card) {
   newsCard.innerHTML = markup;
 
   loader.classList.add('hidden');
-  weatherContainer.style.display = 'block';
+  // weatherContainer.style.display = 'block';
   pagination.classList.remove('hidden');
 
+  renderWetherPosition();
   btnLike();
   btnRead(newArray);
 }
