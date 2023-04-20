@@ -1,16 +1,16 @@
-import { markupOfCard } from "./markup-of-card";
+import { markupOfCard } from './markup-of-card';
 
-const dateListEl = document.querySelector(".date-list");
-const readListSearchEl = document.querySelector(".date-list-search");
-const readFormEl = document.querySelector(".search-form");
-const readInputEl = document.querySelector(".search-input");
-const undefinedImages = document.querySelector(".undefined");
+const dateListEl = document.querySelector('.date-list');
+const readListSearchEl = document.querySelector('.date-list-search');
+const readFormEl = document.querySelector('.search-form');
+const readInputEl = document.querySelector('.search-input');
+const undefinedImages = document.querySelector('.undefined');
 
-const localData = JSON.parse(localStorage.getItem("readCards"));
+const localData = JSON.parse(localStorage.getItem('readCards'));
 
 function arrLocal() {
   if (localData === null) {
-    undefinedImages.style.display = "block";
+    undefinedImages.style.display = 'block';
     return;
   }
   return localData;
@@ -46,20 +46,20 @@ function markupDateRead(date) {
   <ul class="list-news hidden">${markupOfCard(date[key])}</ul>
 </li>`;
     })
-    .join("");
+    .join('');
   createMarkupLoadMore(markupBlockDate);
   sortItem();
 }
 
 function sortItem() {
-  const dateListItem = document.querySelectorAll(".date-list__item");
-  const textDate = document.querySelectorAll(".date-list__btn-text");
+  const dateListItem = document.querySelectorAll('.date-list__item');
+  const textDate = document.querySelectorAll('.date-list__btn-text');
   const dateArr = [];
   const sortDate = [];
   let milliseconds = 0;
   textDate.forEach(element => {
     let dateString = element.innerHTML;
-    let dateParts = dateString.split("/");
+    let dateParts = dateString.split('/');
     let date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
     milliseconds = date.getTime();
     dateArr.push(milliseconds);
@@ -69,10 +69,10 @@ function sortItem() {
 
   filterDate.forEach(element => {
     let newDate = new Date(element);
-    let day = newDate.getDate().toString().padStart(2, "0");
-    let month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+    let day = newDate.getDate().toString().padStart(2, '0');
+    let month = (newDate.getMonth() + 1).toString().padStart(2, '0');
     let year = newDate.getFullYear().toString();
-    let reverseDateString = day + "/" + month + "/" + year;
+    let reverseDateString = day + '/' + month + '/' + year;
     sortDate.push(reverseDateString);
   });
   // ----------lastItem------------
@@ -112,37 +112,37 @@ function sortItem() {
 }
 // ------------------------ACCORDION-----------------------
 
-dateListEl.addEventListener("click", event => {
-  const btn = event.target.closest(".date-list__btn");
+dateListEl.addEventListener('click', event => {
+  const btn = event.target.closest('.date-list__btn');
   if (!btn) return;
 
-  const iconDate = btn.querySelector(".date-list__btn-block");
-  const iconsDate = document.querySelectorAll(".turn");
-  const listNews = document.querySelectorAll(".list-news");
+  const iconDate = btn.querySelector('.date-list__btn-block');
+  const iconsDate = document.querySelectorAll('.turn');
+  const listNews = document.querySelectorAll('.list-news');
 
-  if (!btn.nextElementSibling.classList.contains("hidden")) {
-    btn.nextElementSibling.classList.add("hidden");
-    btn.lastElementChild.classList.remove("turn");
+  if (!btn.nextElementSibling.classList.contains('hidden')) {
+    btn.nextElementSibling.classList.add('hidden');
+    btn.lastElementChild.classList.remove('turn');
     return;
   }
 
   function isHiddenItem(arr) {
     arr.filter(list => {
-      list.classList.contains("hidden");
+      list.classList.contains('hidden');
     });
   }
 
   if (!isHiddenItem(Array.from(listNews))) {
     listNews.forEach(elem => {
-      elem.classList.add("hidden");
+      elem.classList.add('hidden');
     });
   }
-  btn.nextElementSibling.classList.toggle("hidden");
-  iconDate.classList.toggle("turn");
+  btn.nextElementSibling.classList.toggle('hidden');
+  iconDate.classList.toggle('turn');
 
   iconsDate.forEach(icon => {
     if (icon !== btn.lastElementChild) {
-      icon.classList.remove("turn");
+      icon.classList.remove('turn');
     }
   });
 });
@@ -153,22 +153,22 @@ function createMarkupLoadMore(markupBlockDate) {
 
 // ------------------------SEARCH-----------------------
 
-readFormEl.addEventListener("submit", form);
+readFormEl.addEventListener('submit', form);
 
 let newArrForMarkupSearch = [];
 
 function form(event) {
   event.preventDefault();
 
-  if (readInputEl.value.trim() === "") {
-    dateListEl.classList.remove("hidden");
-    undefinedImages.style.display = "none";
-    readListSearchEl.classList.add("hidden");
+  if (readInputEl.value.trim() === '') {
+    dateListEl.classList.remove('hidden');
+    undefinedImages.style.display = 'none';
+    readListSearchEl.classList.add('hidden');
     return;
   } else {
-    dateListEl.classList.remove("hidden");
-    undefinedImages.style.display = "block";
-    readListSearchEl.classList.add("hidden");
+    dateListEl.classList.remove('hidden');
+    undefinedImages.style.display = 'block';
+    readListSearchEl.classList.add('hidden');
     newArrForMarkupSearch = [];
   }
 
@@ -186,15 +186,15 @@ function form(event) {
     }
   }
   if (newArrForMarkupSearch.length === 0) {
-    dateListEl.classList.add("hidden");
-    readListSearchEl.classList.add("hidden");
-    undefinedImages.style.display = "block";
+    dateListEl.classList.add('hidden');
+    readListSearchEl.classList.add('hidden');
+    undefinedImages.style.display = 'block';
     newArrForMarkupSearch = [];
     return;
   }
-  undefinedImages.style.display = "none";
-  dateListEl.classList.add("hidden");
-  readListSearchEl.classList.remove("hidden");
+  undefinedImages.style.display = 'none';
+  dateListEl.classList.add('hidden');
+  readListSearchEl.classList.remove('hidden');
 
   const markupBlockReadSearch = markupOfCard(newArrForMarkupSearch);
 
@@ -206,12 +206,12 @@ function createMarkupLoad(markupBlockDate) {
   newArrForMarkupSearch = [];
 }
 // ------------------------ADD-TO-FAVORITE-----------------------
-const cardNews = document.querySelectorAll(".card-news__item");
+const cardNews = document.querySelectorAll('.card-news__item');
 cardNews.forEach(element => {
-  element.addEventListener("click", btnAddToFavorite);
-  let spanAdd = element.querySelector(".card-news__add-to-favorite-btn");
-  let hiddenSpan = element.querySelector(".card-news__btn-like");
-  let localFavorite = JSON.parse(localStorage.getItem("favoriteCards"));
+  element.addEventListener('click', btnAddToFavorite);
+  let spanAdd = element.querySelector('.card-news__add-to-favorite-btn');
+  let hiddenSpan = element.querySelector('.card-news__btn-like');
+  let localFavorite = JSON.parse(localStorage.getItem('favoriteCards'));
   let checkFavorite = null;
   for (let index = 0; index < localFavorite.length; index++) {
     const fav = localFavorite[index];
@@ -221,46 +221,46 @@ cardNews.forEach(element => {
     checkFavorite = element.lastElementChild.lastElementChild.href === fav.url;
   }
   if (checkFavorite) {
-    hiddenSpan.classList.add("favorite");
-    spanAdd.innerHTML = "Remove from favorite";
+    hiddenSpan.classList.add('favorite');
+    spanAdd.innerHTML = 'Remove from favorite';
   } else {
-    hiddenSpan.classList.remove("favorite");
-    spanAdd.innerHTML = "Add to favorite";
+    hiddenSpan.classList.remove('favorite');
+    spanAdd.innerHTML = 'Add to favorite';
   }
 });
 
 let newLocalStorage = [];
 
 function isLocalEmpty() {
-  if (JSON.parse(localStorage.getItem("favoriteCards")) === null) {
+  if (JSON.parse(localStorage.getItem('favoriteCards')) === null) {
     newLocalStorage = [];
     return;
   }
-  newLocalStorage = JSON.parse(localStorage.getItem("favoriteCards"));
+  newLocalStorage = JSON.parse(localStorage.getItem('favoriteCards'));
 }
 isLocalEmpty();
 
 function btnAddToFavorite(event) {
-  const btn = event.target.closest(".card-news__btn-like");
-  const text = btn.querySelector(".card-news__add-to-favorite-btn");
+  const btn = event.target.closest('.card-news__btn-like');
+  const text = btn.querySelector('.card-news__add-to-favorite-btn');
   if (!btn) return;
   isLocalEmpty();
 
-  if (!btn.classList.contains("favorite")) {
-    btn.classList.add("favorite");
-    text.textContent = "Remove from favorite";
+  if (!btn.classList.contains('favorite')) {
+    btn.classList.add('favorite');
+    text.textContent = 'Remove from favorite';
     addToFavoriteLocal(btn);
     return;
   }
-  btn.classList.remove("favorite");
-  text.textContent = "Add to favorite";
+  btn.classList.remove('favorite');
+  text.textContent = 'Add to favorite';
   let title = btn.nextElementSibling.firstElementChild.textContent;
   for (let i = 0; i < newLocalStorage.length; i += 1) {
     if (newLocalStorage[i].headline === title) {
       newLocalStorage.splice(i, 1);
     }
   }
-  localStorage.setItem("favoriteCards", JSON.stringify(newLocalStorage));
+  localStorage.setItem('favoriteCards', JSON.stringify(newLocalStorage));
 }
 
 function addToFavoriteLocal(btn) {
@@ -272,7 +272,7 @@ function addToFavoriteLocal(btn) {
       btn.nextElementSibling.nextElementSibling.firstElementChild.innerText,
     photo: btn.previousElementSibling.previousElementSibling.currentSrc,
     url: btn.nextElementSibling.nextElementSibling.lastElementChild.href,
-    favorite: "true",
+    favorite: 'true',
   };
   for (let i = 0; i < newLocalStorage.length; i += 1) {
     if (newLocalStorage[i].url === favoriteCards.url) return;
