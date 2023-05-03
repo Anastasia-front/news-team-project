@@ -98,17 +98,17 @@ function sortItem() {
     }
   }
   // ----------center------------
-  for (let index = 0; index < textDate.length; index++) {
-    const element = textDate[index];
-    if (element.innerHTML !== sortDate[index]) {
-      continue;
-    } else {
-      const block1 = dateListItem[index];
-      const block2 = dateListItem[index + 1];
-      const parent = block1.parentNode;
-      parent.insertBefore(block2, block1);
-    }
-  }
+  // for (let index = 0; index < textDate.length; index++) {
+  //   const element = textDate[index];
+  //   if (element.innerHTML !== sortDate[index]) {
+  //     continue;
+  //   } else {
+  //     const block1 = dateListItem[index];
+  //     const block2 = dateListItem[index + 1];
+  //     const parent = block1.parentNode;
+  //     parent.insertBefore(block2, block1);
+  //   }
+  // }
 }
 // ------------------------ACCORDION-----------------------
 
