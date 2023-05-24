@@ -5,7 +5,7 @@ export async function fetchImages(value, page) {
   try {
     let dateForUrl = "";
     const storedDate = localStorage.getItem("date");
-    if (storedDate) {
+    if (storedDate !== null) {
       const date = new Date(storedDate);
       const year = date.getFullYear();
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -15,8 +15,9 @@ export async function fetchImages(value, page) {
       const today = new Date();
       const year = today.getFullYear();
       const month = (today.getMonth() + 1).toString().padStart(2, "0");
+      const perMonth = (today.getMonth()).toString().padStart(2, "0");
       const day = today.getDate().toString().padStart(2, "0");
-      dateForUrl = `&begin_date=${year}${month}${day}&end_date=${year}${month}${day}`;
+      dateForUrl =`&begin_date=${year}${perMonth}${day}&end_date=${year}${month}${day}`
     }
     const response = await fetch(
       `${BASE_URL}${value}&api-key=${KEY_URL}&page=${page}${dateForUrl}`
